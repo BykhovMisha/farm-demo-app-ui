@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: [self-hosted, AWS-EKS-runner-non-prod]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: npm install
+        run: npm i
+      - name: Lint
+        run: npm run lint
+      - name: Style Lint
+        run: npm run lint:style
+      - name: Tests
+        run: npm run test
+      - name: Build App
+        run: npm run build
