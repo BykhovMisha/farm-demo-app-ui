@@ -1,0 +1,15 @@
+.farm-header {
+  user-select: none;
+  background-color: #3a813b;
+  padding: 10px;
+  color: white;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+
+  .logo {
+    cursor: pointer;
+    width: 40px;
+    margin-right: 20px;
+  }
+}
