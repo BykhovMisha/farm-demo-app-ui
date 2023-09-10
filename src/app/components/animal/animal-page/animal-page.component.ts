@@ -55,8 +55,8 @@ export class AnimalPageComponent implements OnInit, OnDestroy {
   @ViewChild("paginator")
   public paginator!: MatPaginator;
   public columns = ["name", "actions"];
-  public pageSizeOptions = [1, 10, 50];
-  public pageSize = 10;
+  public pageSizeOptions = [5, 10, 50];
+  public pageSize = 5;
   public name = "";
   public pageIndex = 0;
 
