@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{ data.id ? "Update Animal" : "Create Animal" }}</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput maxlength="200" cdkFocusInitial [(ngModel)]="data.name" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Close</button>
+  <button mat-button (click)="editAnimal()">
+    {{ data.id ? "Update" : "Create" }}
+  </button>
+</div>

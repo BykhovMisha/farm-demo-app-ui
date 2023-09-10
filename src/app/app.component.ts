@@ -1,20 +1,14 @@
-import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
+import { FooterComponent, HeaderComponent } from "./components/layout";
+import { AlertsComponent } from "./components/alerts/alerts.component";
 
 @Component({
   selector: "farm-root",
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
-  template: `
-    <!--The content below is only a placeholder and can be replaced.-->
-    <router-outlet></router-outlet>
-  `,
-  styles: [],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, AlertsComponent],
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  public title = "farm-demo-app-ui";
-  public A = "2";
-
-  public b = this.A === "2";
-}
+export class AppComponent {}

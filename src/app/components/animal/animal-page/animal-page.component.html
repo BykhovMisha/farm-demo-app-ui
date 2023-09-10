@@ -1,0 +1,54 @@
+<farm-animal-controls
+  [isActionApplying]="isActionApplying()"
+  (nameChange)="onNameChange($event)"
+  (addAnimal)="onEditAnimal()"
+/>
+
+<table
+  mat-table
+  [dataSource]="pageModel().items"
+  class="animals-table mat-elevation-z9"
+>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        class="edit-button"
+        [disabled]="isActionApplying()"
+        (click)="onEditAnimal(element)"
+        mat-stroked-button
+        color="primary"
+      >
+        Edit
+      </button>
+      <button
+        [disabled]="isActionApplying()"
+        (click)="deleteAnimal(element.id)"
+        mat-stroked-button
+      >
+        Delete
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columns"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns"></tr>
+</table>
+<mat-progress-bar *ngIf="isPageLoading()" mode="query"></mat-progress-bar>
+<mat-paginator
+  #paginator
+  class="paginator"
+  [length]="pageModel().totalCount"
+  [pageSize]="pageSize"
+  [pageIndex]="pageIndex"
+  (page)="onPageChange($event)"
+  [disabled]="isActionApplying()"
+  [pageSizeOptions]="pageSizeOptions"
+  [showFirstLastButtons]="true"
+  aria-label="Select page"
+></mat-paginator>
