@@ -140,15 +140,16 @@ export class AnimalPageComponent implements OnInit, OnDestroy {
 
   private editAnimal(data: AnimalEditModalData): void {
     this.isActionApplying.set(true);
+    const name = data.name.trim();
     const action = data.id
-      ? this.#apiService.updateAnimal(data.id, data.name)
-      : this.#apiService.createAnimal(data.name);
+      ? this.#apiService.updateAnimal(data.id, name)
+      : this.#apiService.createAnimal(name);
 
     action.subscribe({
       next: () => {
         this.#alertService.addAlert(
           new Alert({
-            message: `Animal was ${data.id ? "updated" : "created"}`,
+            message: `Animal '${name}' was ${data.id ? "updated" : "created"}`,
           }),
         );
         this.isActionApplying.set(false);
