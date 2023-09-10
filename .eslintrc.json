@@ -82,14 +82,6 @@
         "plugin:prettier/recommended"
       ],
       "rules": {}
-    },
-    {
-      "files": [
-        "*.ts"
-      ],
-      "extends": [
-        "plugin:@ngrx/recommended-requiring-type-checking"
-      ]
     }
   ]
 }
