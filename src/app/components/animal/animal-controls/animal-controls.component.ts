@@ -2,9 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Input,
   OnDestroy,
   OnInit,
   Output,
+  booleanAttribute,
 } from "@angular/core";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -28,6 +30,9 @@ import { Subscription, debounceTime } from "rxjs";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimalControlsComponent implements OnInit, OnDestroy {
+  @Input({ transform: booleanAttribute })
+  public isActionApplying = false;
+
   @Output() public nameChange: EventEmitter<string> =
     new EventEmitter<string>();
   @Output() public addAnimal: EventEmitter<void> = new EventEmitter<void>();

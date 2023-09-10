@@ -1,4 +1,8 @@
-<table mat-table [dataSource]="animals" class="animals-table mat-elevation-z8">
+<table
+  mat-table
+  [dataSource]="pageModel.items"
+  class="animals-table mat-elevation-z8"
+>
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Name</th>
     <td mat-cell *matCellDef="let element">{{ element.name }}</td>
@@ -7,3 +11,10 @@
   <tr mat-header-row *matHeaderRowDef="columns"></tr>
   <tr mat-row *matRowDef="let row; columns: columns"></tr>
 </table>
+<mat-paginator
+  #paginator
+  class="demo-paginator"
+  [pageSize]="50"
+  [showFirstLastButtons]="true"
+  aria-label="Select page"
+></mat-paginator>

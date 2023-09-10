@@ -5,7 +5,12 @@
     <mat-icon matPrefix>search</mat-icon>
     <mat-hint>Max 200 characters {{ name.value?.length }}/200</mat-hint>
   </mat-form-field>
-  <button (click)="onAddAnimal()" mat-raised-button color="primary">
+  <button
+    [disabled]="isActionApplying"
+    (click)="onAddAnimal()"
+    mat-raised-button
+    color="primary"
+  >
     Add Animal
   </button>
 </div>

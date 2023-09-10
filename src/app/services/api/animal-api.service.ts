@@ -19,10 +19,13 @@ export class AnimalApiService {
   }
 
   public getPage(
-    skip: number,
-    take: number,
+    pageSize: number,
+    pageIndex: number,
     name: string,
   ): Observable<PageModel<AnimalModel>> {
+    const skip = pageSize * pageIndex;
+    const take = pageSize;
+
     return this.#httpClient
       .get<PageDto<AnimalDto>>(this.#serviceUrl, {
         params: { skip, take, name },
@@ -43,7 +46,7 @@ export class AnimalApiService {
   }
 
   public updateAnimal(id: number, name: string): Observable<void> {
-    return this.#httpClient.post<void>(`${this.#serviceUrl}/${id}`, { name });
+    return this.#httpClient.put<void>(`${this.#serviceUrl}/${id}`, { name });
   }
 
   public deleteAnimal(id: number): Observable<void> {
