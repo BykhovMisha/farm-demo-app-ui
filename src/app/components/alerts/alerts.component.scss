@@ -1,0 +1,33 @@
+.farm-alert-container {
+  position: fixed;
+  bottom: 2.5rem;
+  right: 1.5rem;
+
+  .alert {
+    display: flex;
+    width: 20rem;
+    padding: 1.3rem;
+    border-radius: 0.3rem;
+    border-width: 1px;
+    border-style: solid;
+    margin-top: 1.5rem;
+
+    &.warning {
+      border-color: rgb(146, 43, 43);
+      background-color: rgb(241, 207, 207);
+    }
+
+    &.success {
+      border-color: rgb(15, 114, 15);
+      background-color: #bff1bf;
+    }
+
+    .close-icon {
+      cursor: pointer;
+    }
+
+    .message {
+      flex: 1;
+    }
+  }
+}

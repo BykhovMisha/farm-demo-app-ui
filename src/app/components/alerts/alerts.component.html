@@ -1,0 +1,21 @@
+<div class="farm-alert-container">
+  <div
+    class="alert"
+    [ngClass]="{
+      warning: alert.type === AlertType.Warning,
+      success: alert.type === AlertType.Success
+    }"
+    *ngFor="let alert of alertService.alerts()"
+  >
+    <span class="message">
+      {{ alert.message }}
+    </span>
+    <mat-icon
+      class="close-icon"
+      (click)="closeAlert(alert)"
+      aria-hidden="false"
+      aria-label="close alert"
+      fontIcon="close"
+    ></mat-icon>
+  </div>
+</div>

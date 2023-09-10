@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
-  ChangeDetectorRef,
   inject,
   signal,
   OnDestroy,
@@ -18,13 +17,14 @@ import {
 } from "@angular/material/paginator";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { AnimalApiService } from "src/app/services/api";
-import { AnimalModel, PageModel } from "src/app/models";
+import { Alert, AnimalModel, PageModel } from "src/app/models";
 import { AnimalControlsComponent } from "../animal-controls/animal-controls.component";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { AnimalEditModalComponent } from "../animal-edit-modal/animal-edit-modal.component";
 import { AnimalEditModalData } from "../animal-edit-modal/animal-edit-modal-data";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatButtonModule } from "@angular/material/button";
+import { AlertService } from "src/app/services/shared";
 
 @Component({
   selector: "farm-animal-page",
@@ -48,8 +48,8 @@ import { MatButtonModule } from "@angular/material/button";
 export class AnimalPageComponent implements OnInit, OnDestroy {
   readonly #dialog: MatDialog = inject(MatDialog);
   readonly #apiService: AnimalApiService = inject(AnimalApiService);
-  readonly #changeDetectorRef = inject(ChangeDetectorRef);
   readonly #subs = new Subscription();
+  readonly #alertService = inject(AlertService);
   #getPageSub?: Subscription;
 
   @ViewChild("paginator")
@@ -90,7 +90,6 @@ export class AnimalPageComponent implements OnInit, OnDestroy {
   }
 
   public onPageChange(page: PageEvent): void {
-    console.log(page);
     this.pageSize = page.pageSize;
     this.pageIndex = page.pageIndex;
     this.getPage();
@@ -110,7 +109,6 @@ export class AnimalPageComponent implements OnInit, OnDestroy {
 
     this.#subs.add(
       dialogRef.afterClosed().subscribe((data?: AnimalEditModalData) => {
-        console.log(data);
         if (!data) {
           return;
         }
@@ -124,6 +122,9 @@ export class AnimalPageComponent implements OnInit, OnDestroy {
     this.isActionApplying.set(true);
     this.#apiService.deleteAnimal(id).subscribe({
       next: () => {
+        this.#alertService.addAlert(
+          new Alert({ message: "Animal was deleted" }),
+        );
         this.isActionApplying.set(false);
         if (this.pageModel().items.length === 1 && this.pageIndex > 0) {
           this.pageIndex = this.pageIndex - 1;
@@ -145,6 +146,11 @@ export class AnimalPageComponent implements OnInit, OnDestroy {
 
     action.subscribe({
       next: () => {
+        this.#alertService.addAlert(
+          new Alert({
+            message: `Animal was ${data.id ? "updated" : "created"}`,
+          }),
+        );
         this.isActionApplying.set(false);
         this.getPage();
       },
